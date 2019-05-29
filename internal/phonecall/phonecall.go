@@ -14,7 +14,9 @@ import (
 func Phonecall(notification model.Notification, role string) (int ,error) {
 	var receiver = "phonecall"
 	if ! selectTime() {
-		return http.StatusNotImplemented, fmt.Errorf("非电话报警时间段")
+		fmt.Println("非电话报警时间段")
+		// 响应 code 200,避免 Alertmanager 误以为发送失败，频发发送
+		return http.StatusOK, fmt.Errorf("非电话报警时间段")
 	}
 
 	var status string

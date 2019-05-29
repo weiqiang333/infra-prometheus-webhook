@@ -59,7 +59,7 @@ Item values:
 		log.Println(http.StatusInternalServerError, receiver, status, grade, alertname, alertSummary)
 		return err
 	}
-	log.Println(resp.Status, receiver, status, grade, alertname, alertSummary)
+	log.Println(resp.StatusCode, receiver, status, grade, alertname, alertSummary)
 	return nil
 }
 

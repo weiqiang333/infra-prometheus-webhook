@@ -15,33 +15,31 @@
 package cmd
 
 import (
-	"github.com/spf13/cobra"
+	"fmt"
 
-	"infra-prometheus-webhook/web"
+	"github.com/spf13/cobra"
 )
 
-// webhookCmd represents the webhook command
-var webhookCmd = &cobra.Command{
-	Use:   "webhook",
-	Short: "prometheus alert receiver webhook",
-	Long: `prometheus alert receiver webhook:
-
-		Here, the DingTalk group robot receiver and the yunpian voice receiver are implemented..`,
+// versionCmd represents the version command
+var versionCmd = &cobra.Command{
+	Use:   "version",
+	Short: "View prometheus-webhook version",
+	Long: `View prometheus-webhook version.`,
 	Run: func(cmd *cobra.Command, args []string) {
-		web.Webhook()
+		fmt.Println("version 0.1.1")
 	},
 }
 
 func init() {
-	rootCmd.AddCommand(webhookCmd)
+	rootCmd.AddCommand(versionCmd)
 
 	// Here you will define your flags and configuration settings.
 
 	// Cobra supports Persistent Flags which will work for this command
 	// and all subcommands, e.g.:
-	// webhookCmd.PersistentFlags().String("foo", "", "A help for foo")
+	// versionCmd.PersistentFlags().String("foo", "", "A help for foo")
 
 	// Cobra supports local flags which will only run when this command
 	// is called directly, e.g.:
-	// webhookCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
+	// versionCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
 }

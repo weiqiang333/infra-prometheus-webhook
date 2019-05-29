@@ -1,0 +1,13 @@
+[Unit]
+Description=prometheus webhook
+
+[Service]
+User=apps
+Group=apps
+Restart=always
+WorkingDirectory=/apps/infra-prometheus-webhook
+EnvironmentFile=/etc/sysconfig/infra-prometheus-webhook
+ExecStart=/usr/sbin/infra-prometheus-webhook $OPTIONS
+
+[Install]
+WantedBy=multi-user.target

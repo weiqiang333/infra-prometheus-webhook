@@ -27,6 +27,7 @@ Usage:
 
 Available Commands:
   help        Help about any command
+  version     View prometheus-webhook version
   webhook     prometheus alert receiver webhook
 
 Flags:

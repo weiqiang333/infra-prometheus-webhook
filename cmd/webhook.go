@@ -15,8 +15,10 @@
 package cmd
 
 import (
+	"fmt"
 	"github.com/spf13/cobra"
 
+	"infra-prometheus-webhook/internal/checks"
 	"infra-prometheus-webhook/web"
 )
 
@@ -28,6 +30,11 @@ var webhookCmd = &cobra.Command{
 
 		Here, the DingTalk group robot receiver and the yunpian voice receiver are implemented..`,
 	Run: func(cmd *cobra.Command, args []string) {
+		check, _ := cmd.Flags().GetBool("check")
+		if check == true {
+			fmt.Println("Run check Cron")
+			checks.Cron()
+		}
 		web.Webhook()
 	},
 }
@@ -44,4 +51,5 @@ func init() {
 	// Cobra supports local flags which will only run when this command
 	// is called directly, e.g.:
 	// webhookCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
+	webhookCmd.Flags().BoolP("check", "c", false, "check's cron: Used to check the infrastructure")
 }

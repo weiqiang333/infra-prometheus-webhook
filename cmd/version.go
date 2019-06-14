@@ -26,7 +26,7 @@ var versionCmd = &cobra.Command{
 	Short: "View prometheus-webhook version",
 	Long: `View prometheus-webhook version.`,
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("version 0.1.1")
+		fmt.Println("version 0.1.2")
 	},
 }
 

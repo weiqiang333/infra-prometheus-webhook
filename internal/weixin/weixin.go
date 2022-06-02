@@ -36,18 +36,18 @@ Item values:
 
 %s
 
-故障修复: %s`,
+故障: %s`,
 		status, grade, alertname, alertSummary, description)
 
 	data := fmt.Sprintf(`{
         "msgtype": "text",
-            "text": {
-				"content": "%s",
-			},
+		"text": {
+			"content": "%s",
+		},
     }`, content)
 	bodys := strings.NewReader(data)
 	resp, err := http.Post(fmt.Sprintf("https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=%s",
-		model.Config.Dingtalk[priority]), "application/json", bodys)
+		model.Config.Weixin[priority]), "application/json", bodys)
 	if err != nil {
 		log.Println(http.StatusInternalServerError, receiver, status, grade, alertname, alertSummary)
 		return err
@@ -61,7 +61,7 @@ func summary(notification model.Notification) string {
 	var annotations bytes.Buffer
 	for i, alert := range notification.Alerts {
 		annotations.WriteString(strconv.Itoa(i+1) + ". " + alert.Annotations["summary"])
-		if i + 1 != len(notification.Alerts) {
+		if i+1 != len(notification.Alerts) {
 			annotations.WriteString("\n")
 		}
 	}

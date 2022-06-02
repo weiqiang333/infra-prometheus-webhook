@@ -12,8 +12,8 @@
 *.out
 
 # Add
+vendor
 .arc*
-go.sum
-log
+log/*
 .idea
 infra-prometheus-webhook

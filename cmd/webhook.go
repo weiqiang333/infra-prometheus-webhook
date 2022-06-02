@@ -16,10 +16,10 @@ package cmd
 
 import (
 	"fmt"
-	"github.com/spf13/cobra"
 
-	"infra-prometheus-webhook/internal/checks"
-	"infra-prometheus-webhook/web"
+	"github.com/spf13/cobra"
+	"github.com/weiqiang333/infra-prometheus-webhook/internal/checks"
+	"github.com/weiqiang333/infra-prometheus-webhook/web"
 )
 
 // webhookCmd represents the webhook command

@@ -1,11 +1,13 @@
 package web
 
 import (
-	"github.com/gin-gonic/gin"
-	"infra-prometheus-webhook/model"
+	"fmt"
 
-	"infra-prometheus-webhook/web/dingtalk"
-	"infra-prometheus-webhook/web/phonecall"
+	"github.com/gin-gonic/gin"
+	"github.com/weiqiang333/infra-prometheus-webhook/model"
+	"github.com/weiqiang333/infra-prometheus-webhook/web/dingtalk"
+	"github.com/weiqiang333/infra-prometheus-webhook/web/phonecall"
+	"github.com/weiqiang333/infra-prometheus-webhook/web/weixin"
 )
 
 // Webhook 路由入口文件
@@ -20,6 +22,10 @@ func Webhook() {
 	{
 		alerts.POST("/dingtalk/:priority", dingtalk.Dingtalk)
 		alerts.POST("/phonecall/:role", phonecall.Phonecall)
+		alerts.POST("/weixin/:priority", weixin.Weixin)
 	}
-	router.Run(model.Config.ListenPort)
+	err := router.Run(model.Config.ListenPort)
+	if err != nil {
+		fmt.Println("service run failed: %s", err.Error())
+	}
 }

@@ -21,8 +21,7 @@ import (
 	"github.com/mitchellh/go-homedir"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
-
-	"infra-prometheus-webhook/model"
+	"github.com/weiqiang333/infra-prometheus-webhook/model"
 )
 
 var cfgFile string

@@ -1,17 +1,17 @@
-package dingtalk
+package weixin
 
 import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
+	"github.com/weiqiang333/infra-prometheus-webhook/internal/weixin"
 	"github.com/weiqiang333/infra-prometheus-webhook/model"
-	"github.com/weiqiang333/infra-prometheus-webhook/internal/dingtalk"
 )
 
-var notification  = model.Notification{}
+var notification = model.Notification{}
 
-// Dingtalk 路由入口、响应
-func Dingtalk(c *gin.Context) {
+// Weixin 路由入口、响应
+func Weixin(c *gin.Context) {
 	err := c.BindJSON(&notification)
 	priority, _ := c.Params.Get("priority")
 	if err != nil {
@@ -19,7 +19,7 @@ func Dingtalk(c *gin.Context) {
 		return
 	}
 	// 发送钉钉消息
-	err = dingtalk.Dingtalk(notification, priority)
+	err = weixin.Weixin(notification, priority)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return

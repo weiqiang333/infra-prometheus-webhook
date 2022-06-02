@@ -14,7 +14,7 @@
 
 package main
 
-import "infra-prometheus-webhook/cmd"
+import "github.com/weiqiang333/infra-prometheus-webhook/cmd"
 
 func main() {
 	cmd.Execute()

@@ -5,8 +5,8 @@ import (
 
 	"github.com/gin-gonic/gin"
 
-	"infra-prometheus-webhook/internal/phonecall"
-	"infra-prometheus-webhook/model"
+	"github.com/weiqiang333/infra-prometheus-webhook/internal/phonecall"
+	"github.com/weiqiang333/infra-prometheus-webhook/model"
 )
 
 var notification  = model.Notification{}

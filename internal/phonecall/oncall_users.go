@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"time"
 
-	"infra-prometheus-webhook/model"
+	"github.com/weiqiang333/infra-prometheus-webhook/model"
 )
 
 var user model.OncallUser

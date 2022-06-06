@@ -5,14 +5,13 @@ import (
 
 	"github.com/gin-gonic/gin"
 
-	"infra-prometheus-webhook/internal/phonecall"
-	"infra-prometheus-webhook/model"
+	"github.com/weiqiang333/infra-prometheus-webhook/internal/phonecall"
+	"github.com/weiqiang333/infra-prometheus-webhook/model"
 )
 
-var notification  = model.Notification{}
-
 // Phonecall 路由入口、响应
-func Phonecall(c *gin.Context)  {
+func Phonecall(c *gin.Context) {
+	notification := model.Notification{}
 	err := c.BindJSON(&notification)
 	role, _ := c.Params.Get("role")
 	if err != nil {

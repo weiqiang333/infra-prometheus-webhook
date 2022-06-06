@@ -6,7 +6,7 @@ import (
 	"database/sql"
 	_ "github.com/lib/pq"
 
-	"infra-prometheus-webhook/model"
+	"github.com/weiqiang333/infra-prometheus-webhook/model"
 )
 
 func GetDB() *sql.DB {

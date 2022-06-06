@@ -1,4 +1,4 @@
-package dingtalk
+package weixin
 
 import (
 	"bytes"
@@ -11,9 +11,9 @@ import (
 	"github.com/weiqiang333/infra-prometheus-webhook/model"
 )
 
-// Dingtalk 发送钉钉消息程序
-func Dingtalk(notification model.Notification, priority string) error {
-	var receiver = "dingtalk"
+// Weixin 发送企业微信消息程序
+func Weixin(notification model.Notification, priority string) error {
+	var receiver = "weixin"
 	var status string
 	switch notification.Status {
 	case "firing":
@@ -36,22 +36,18 @@ Item values:
 
 %s
 
-
-故障修复: %s`,
+故障: %s`,
 		status, grade, alertname, description, summary)
 
 	data := fmt.Sprintf(`{
         "msgtype": "text",
-            "text": {
-            "content": "%s",
-        },
-        "at": {
-            "isAtAll": "true",
-        },
+		"text": {
+			"content": "%s",
+		},
     }`, content)
 	bodys := strings.NewReader(data)
-	resp, err := http.Post(fmt.Sprintf("https://oapi.dingtalk.com/robot/send?access_token=%s",
-		model.Config.Dingtalk[priority]), "application/json", bodys)
+	resp, err := http.Post(fmt.Sprintf("https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=%s",
+		model.Config.Weixin[priority]), "application/json", bodys)
 	if err != nil {
 		log.Println(http.StatusInternalServerError, receiver, status, grade, alertname, summary, description)
 		return err

@@ -7,7 +7,7 @@ import (
 	"time"
 
 	ypclnt "github.com/yunpian/yunpian-go-sdk/sdk"
-	"infra-prometheus-webhook/model"
+	"github.com/weiqiang333/infra-prometheus-webhook/model"
 )
 
 // Phonecall 发送电话报警给值班人员

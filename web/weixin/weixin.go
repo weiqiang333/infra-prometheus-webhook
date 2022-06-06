@@ -8,10 +8,9 @@ import (
 	"github.com/weiqiang333/infra-prometheus-webhook/model"
 )
 
-var notification = model.Notification{}
-
 // Weixin 路由入口、响应
 func Weixin(c *gin.Context) {
+	notification := model.Notification{}
 	err := c.BindJSON(&notification)
 	priority, _ := c.Params.Get("priority")
 	if err != nil {

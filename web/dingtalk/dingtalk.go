@@ -4,14 +4,13 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
-	"github.com/weiqiang333/infra-prometheus-webhook/model"
 	"github.com/weiqiang333/infra-prometheus-webhook/internal/dingtalk"
+	"github.com/weiqiang333/infra-prometheus-webhook/model"
 )
-
-var notification  = model.Notification{}
 
 // Dingtalk 路由入口、响应
 func Dingtalk(c *gin.Context) {
+	notification := model.Notification{}
 	err := c.BindJSON(&notification)
 	priority, _ := c.Params.Get("priority")
 	if err != nil {

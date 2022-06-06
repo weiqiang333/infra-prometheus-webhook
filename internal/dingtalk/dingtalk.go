@@ -23,8 +23,8 @@ func Dingtalk(notification model.Notification, priority string) error {
 	}
 	grade := notification.CommonLabels["priority"]
 	alertname := notification.CommonLabels["alertname"]
-	description := notification.CommonAnnotations["description"]
-	alertSummary := summary(notification)
+	description := get_description_list(notification)
+	summary := notification.CommonAnnotations["summary"]
 
 	content := fmt.Sprintf(`状态: %s
 
@@ -32,16 +32,13 @@ func Dingtalk(notification model.Notification, priority string) error {
 
 告警: %s
 
-
-
 Item values: 
 
 %s
 
 
-
 故障修复: %s`,
-		status, grade, alertname, alertSummary, description)
+		status, grade, alertname, description, summary)
 
 	data := fmt.Sprintf(`{
         "msgtype": "text",
@@ -56,19 +53,19 @@ Item values:
 	resp, err := http.Post(fmt.Sprintf("https://oapi.dingtalk.com/robot/send?access_token=%s",
 		model.Config.Weixin[priority]), "application/json", bodys)
 	if err != nil {
-		log.Println(http.StatusInternalServerError, receiver, status, grade, alertname, alertSummary)
+		log.Println(http.StatusInternalServerError, receiver, status, grade, alertname, summary, description)
 		return err
 	}
-	log.Println(resp.StatusCode, receiver, status, grade, alertname, alertSummary)
+	log.Println(resp.StatusCode, receiver, status, grade, alertname, summary, description)
 	return nil
 }
 
-// summary 将多条报警内容总结为一条
-func summary(notification model.Notification) string {
+// get_description_list 将多条报警内容总结为一条信息清单
+func get_description_list(notification model.Notification) string {
 	var annotations bytes.Buffer
 	for i, alert := range notification.Alerts {
-		annotations.WriteString(strconv.Itoa(i+1) + ". " + alert.Annotations["summary"])
-		if i + 1 != len(notification.Alerts) {
+		annotations.WriteString(strconv.Itoa(i+1) + ". " + alert.Annotations["description"])
+		if i+1 != len(notification.Alerts) {
 			annotations.WriteString("\n")
 		}
 	}

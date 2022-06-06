@@ -49,10 +49,10 @@ Item values:
 	resp, err := http.Post(fmt.Sprintf("https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=%s",
 		model.Config.Weixin[priority]), "application/json", bodys)
 	if err != nil {
-		log.Println(http.StatusInternalServerError, receiver, status, grade, alertname, alertSummary)
+		log.Println(http.StatusInternalServerError, receiver, status, grade, alertname, summary, description)
 		return err
 	}
-	log.Println(resp.StatusCode, receiver, status, grade, alertname, alertSummary)
+	log.Println(resp.StatusCode, receiver, status, grade, alertname, summary, description)
 	return nil
 }
 

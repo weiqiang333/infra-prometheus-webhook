@@ -51,7 +51,7 @@ Item values:
     }`, content)
 	bodys := strings.NewReader(data)
 	resp, err := http.Post(fmt.Sprintf("https://oapi.dingtalk.com/robot/send?access_token=%s",
-		model.Config.Weixin[priority]), "application/json", bodys)
+		model.Config.Dingtalk[priority]), "application/json", bodys)
 	if err != nil {
 		log.Println(http.StatusInternalServerError, receiver, status, grade, alertname, summary, description)
 		return err

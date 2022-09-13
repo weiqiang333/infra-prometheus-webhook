@@ -12,6 +12,7 @@
 *.out
 
 # Add
+configs/test.yaml
 vendor
 .arc*
 log/*

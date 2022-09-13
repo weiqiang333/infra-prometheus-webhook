@@ -18,6 +18,13 @@ Weixin:
   P2: token...
   P3: token...
 
+Telegram:
+  bot_token: token...
+  P0: chat_id
+  P1: chat_id
+  P2: chat_id
+  P3: chat_id
+
 # 值班人员信息-数据库
 DataBase:
   host: db_host...

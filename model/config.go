@@ -6,6 +6,7 @@ type config struct {
 	Weixin     map[string]string
 	PhoneCall  map[string]string
 	DataBase   map[string]string
+	Telegram   map[string]string
 }
 
 var Config config

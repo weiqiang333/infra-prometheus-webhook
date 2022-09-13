@@ -1,12 +1,13 @@
 # infra-prometheus-webhook
 
-This is a prometheus alert notification receiver
+This is a prometheus + alertmanager + webhook alert notification receiver
 
 What is prometheus? See here [`prometheus`](https://prometheus.io/docs/introduction/overview/#what-is-prometheus)
 
 Here, the [`DingTalk`](https://open-doc.dingtalk.com/microapp/serverapi2/qf2nxq) group robot receiver 
 and the [`yunpian`](https://github.com/yunpian/yunpian-go-sdk) voice receiver are implemented 
-and the [Weixin robot](https://developer.work.weixin.qq.com/document/path/91770).
+and the [Weixin robot](https://developer.work.weixin.qq.com/document/path/91770)
+and the [Telegram Bot](https://core.telegram.org/bots/api).
 
 
 # init

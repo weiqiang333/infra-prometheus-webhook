@@ -14,8 +14,46 @@
 
 package main
 
-import "github.com/weiqiang333/infra-prometheus-webhook/cmd"
+import (
+	"fmt"
+
+	"github.com/spf13/pflag"
+	"github.com/spf13/viper"
+
+	"github.com/weiqiang333/infra-prometheus-webhook/internal/checks"
+	"github.com/weiqiang333/infra-prometheus-webhook/web"
+)
+
+func init() {
+	pflag.String("config", "configs/production.yaml", "config file")
+	pflag.String("listen_address", "0.0.0.0:8080", "server listen address.")
+	pflag.Bool("check", false, "check's cron: Used to check the infrastructure")
+}
 
 func main() {
-	cmd.Execute()
+	loadConfig()
+
+	if viper.GetBool("check") {
+		fmt.Println("Run check Cron")
+		checks.Cron()
+	}
+
+	web.Webhook()
+}
+
+// load config and flag config
+func loadConfig() {
+	pflag.Parse()
+
+	err := viper.BindPFlags(pflag.CommandLine)
+	if err != nil {
+		fmt.Println(err.Error())
+		panic(fmt.Errorf("Fatal error BindPFlags: %w \n", err))
+	}
+	viper.SetConfigType("yaml")
+	viper.SetConfigFile(viper.GetString("configFile"))
+	err = viper.ReadInConfig() // Find and read the config file
+	if err != nil {            // Handle errors reading the config file
+		panic(fmt.Errorf("Fatal error config file: %w \n", err))
+	}
 }

@@ -13,7 +13,7 @@
 
 # Add
 configs/test.yaml
-vendor
+vendor/
 .arc*
 log/*
 .idea

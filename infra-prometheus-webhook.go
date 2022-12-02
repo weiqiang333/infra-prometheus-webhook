@@ -16,6 +16,8 @@ package main
 
 import (
 	"fmt"
+	"log"
+	"os"
 
 	"github.com/spf13/pflag"
 	"github.com/spf13/viper"
@@ -27,7 +29,15 @@ import (
 func init() {
 	pflag.String("config", "configs/production.yaml", "config file")
 	pflag.String("listen_address", "0.0.0.0:8080", "server listen address.")
-	pflag.Bool("check", false, "check's cron: Used to check the infrastructure")
+	pflag.Bool("check", false, "check's cron: Used to check the infrastructure.(It is a temporary solution and not recommended. - deprecating -)")
+
+	file, err := os.OpenFile("log/infra-prometheus-webhook.log", os.O_WRONLY|os.O_APPEND|os.O_CREATE, 0755)
+	if err != nil {
+		log.Println("Failed open log file: ", err.Error())
+		os.Exit(1)
+	}
+	log.SetFlags(log.Ldate | log.Lmicroseconds | log.LUTC)
+	log.SetOutput(file)
 }
 
 func main() {
@@ -51,7 +61,7 @@ func loadConfig() {
 		panic(fmt.Errorf("Fatal error BindPFlags: %w \n", err))
 	}
 	viper.SetConfigType("yaml")
-	viper.SetConfigFile(viper.GetString("configFile"))
+	viper.SetConfigFile(viper.GetString("config"))
 	err = viper.ReadInConfig() // Find and read the config file
 	if err != nil {            // Handle errors reading the config file
 		panic(fmt.Errorf("Fatal error config file: %w \n", err))

@@ -46,6 +46,6 @@ func reloadConfig(c *gin.Context) {
 		c.String(http.StatusOK, fmt.Sprintf("Failed reload config file: %s, err: %s", viper.ConfigFileUsed(), err.Error()))
 		return
 	}
-	log.Println("reload config file: ", viper.ConfigFileUsed())
+	log.Println("INFO reload config file: ", viper.ConfigFileUsed())
 	c.String(http.StatusOK, fmt.Sprintf("reload config file: %s", viper.ConfigFileUsed()))
 }

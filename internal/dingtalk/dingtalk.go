@@ -1,14 +1,14 @@
 package dingtalk
 
 import (
-	"bytes"
 	"fmt"
 	"log"
 	"net/http"
-	"strconv"
 	"strings"
 
-	"github.com/weiqiang333/infra-prometheus-webhook/model"
+	"github.com/spf13/viper"
+	"github.com/weiqiang333/infra-prometheus-webhook/internal/model"
+	"github.com/weiqiang333/infra-prometheus-webhook/internal/utils/notification_process"
 )
 
 // Dingtalk 发送钉钉消息程序
@@ -23,8 +23,9 @@ func Dingtalk(notification model.Notification, priority string) error {
 	}
 	grade := notification.CommonLabels["priority"]
 	alertname := notification.CommonLabels["alertname"]
-	description := get_description_list(notification)
+	description := notification_process.GetDescriptionList(notification)
 	summary := notification.CommonAnnotations["summary"]
+	accessToken := viper.GetString(fmt.Sprintf("Dingtalk.%s", priority))
 
 	content := fmt.Sprintf(`状态: %s
 
@@ -50,25 +51,11 @@ Item values:
         },
     }`, content)
 	bodys := strings.NewReader(data)
-	resp, err := http.Post(fmt.Sprintf("https://oapi.dingtalk.com/robot/send?access_token=%s",
-		model.Config.Dingtalk[priority]), "application/json", bodys)
+	resp, err := http.Post(fmt.Sprintf("https://oapi.dingtalk.com/robot/send?access_token=%s", accessToken), "application/json", bodys)
 	if err != nil {
-		log.Println(http.StatusInternalServerError, receiver, status, grade, alertname, summary, description)
+		log.Println("Failed http.Post", http.StatusInternalServerError, receiver, status, grade, alertname, summary, description)
 		return err
 	}
-	log.Println(resp.StatusCode, receiver, status, grade, alertname, summary, description)
+	log.Println("INFO http.Post", resp.StatusCode, receiver, status, grade, alertname, summary, description)
 	return nil
-}
-
-// get_description_list 将多条报警内容总结为一条信息清单
-func get_description_list(notification model.Notification) string {
-	var annotations bytes.Buffer
-	for i, alert := range notification.Alerts {
-		annotations.WriteString(strconv.Itoa(i+1) + ". " + alert.Annotations["description"])
-		if i+1 != len(notification.Alerts) {
-			annotations.WriteString("\n")
-		}
-	}
-	fmt.Print(annotations.String())
-	return annotations.String()
 }

@@ -4,16 +4,17 @@ import (
 	"fmt"
 	"log"
 	"net/http"
-	"time"
 
+	"github.com/spf13/viper"
+	model2 "github.com/weiqiang333/infra-prometheus-webhook/internal/model"
+	"github.com/weiqiang333/infra-prometheus-webhook/internal/utils/date"
 	ypclnt "github.com/yunpian/yunpian-go-sdk/sdk"
-	"github.com/weiqiang333/infra-prometheus-webhook/model"
 )
 
 // Phonecall 发送电话报警给值班人员
-func Phonecall(notification model.Notification, role string) (int ,error) {
+func Phonecall(notification model2.Notification, role string) (int, error) {
 	var receiver = "phonecall"
-	if ! selectTime() {
+	if !date.SelectTime() {
 		fmt.Println("非电话报警时间段")
 		// 响应 code 200,避免 Alertmanager 误以为发送失败，频发发送
 		return http.StatusOK, fmt.Errorf("非电话报警时间段")
@@ -30,10 +31,11 @@ func Phonecall(notification model.Notification, role string) (int ,error) {
 	alertname := notification.CommonLabels["alertname"]
 
 	// 获取值班用户、电话
-	user = GetOncallUser(role)
+	user := GetOncallUser(role)
 
 	// 发送云片电话
-	clnt := ypclnt.New(model.Config.PhoneCall["apikey"])
+	apiKey := viper.GetString("PhoneCall.apikey")
+	clnt := ypclnt.New(apiKey)
 	voice := clnt.Voice()
 	param := ypclnt.NewParam(2)
 	param[ypclnt.MOBILE] = user.Mobile
@@ -49,16 +51,4 @@ func Phonecall(notification model.Notification, role string) (int ,error) {
 		log.Println(http.StatusInternalServerError, receiver, status, grade, alertname, role, user.UserName, r.Detail)
 		return http.StatusInternalServerError, fmt.Errorf(r.Detail)
 	}
-}
-
-// selectTime 凌晨至早8点时间确认
-func selectTime() bool {
-	now := time.Now().UTC()
-	date, _ := time.Parse("2006-01-02", now.Format("2006-01-02"))
-	startTime := date.Add(time.Hour * 16)
-	stopTime := date.Add(time.Hour * 24)
-	if now.After(startTime) && now.Before(stopTime) {
-		return true
-	}
-	return false
 }

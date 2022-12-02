@@ -5,8 +5,8 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
+	"github.com/weiqiang333/infra-prometheus-webhook/internal/model"
 	"github.com/weiqiang333/infra-prometheus-webhook/internal/telegram"
-	"github.com/weiqiang333/infra-prometheus-webhook/model"
 )
 
 // Telegram 路由入口、响应
@@ -19,7 +19,7 @@ func Telegram(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
-	// 发送钉钉消息
+	// 发送 Telegram 消息
 	err = telegram.Telegram(notification, priority)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})

@@ -2,18 +2,23 @@ package phonecall
 
 import (
 	"fmt"
+	"log"
 	"time"
 
-	"github.com/weiqiang333/infra-prometheus-webhook/model"
+	"github.com/spf13/viper"
 )
 
-var user model.OncallUser
+type OncallUser struct {
+	Mobile   string
+	UserName string
+}
 
 // GetOncallUser 连接数据库,获取当前值班人员
-func GetOncallUser(role string) model.OncallUser {
+func GetOncallUser(role string) OncallUser {
+	var user OncallUser
 	db := GetDB()
 	defer db.Close()
-	table := model.Config.DataBase["table"]
+	table := viper.GetString("DataBase.table")
 	date := time.Now().UTC().Format("2006-01-02")
 	sql := `
 		SELECT username, mobile
@@ -30,7 +35,7 @@ func GetOncallUser(role string) model.OncallUser {
 	if rows.Next() {
 		err := rows.Scan(&user.UserName, &user.Mobile)
 		if err != nil {
-			fmt.Print(err)
+			log.Println("Failed GetOncallUser error: ", err.Error())
 		}
 	}
 	return user

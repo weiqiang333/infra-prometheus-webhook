@@ -18,3 +18,4 @@ vendor/
 log/*
 .idea
 infra-prometheus-webhook
+*.tar.gz

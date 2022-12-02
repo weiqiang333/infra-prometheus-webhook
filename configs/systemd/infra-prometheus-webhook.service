@@ -2,10 +2,10 @@
 Description=prometheus webhook
 
 [Service]
-User=apps
-Group=apps
-WorkingDirectory=/apps/infra-prometheus-webhook
-ExecStart=/usr/sbin/infra-prometheus-webhook webhook --config configs/production.yaml -c
+User=root
+Group=root
+WorkingDirectory=/usr/local/infra-prometheus-webhook
+ExecStart=/usr/local/infra-prometheus-webhook/infra-prometheus-webhook --config configs/production.yaml
 Restart=always
 LimitNOFILE=65536
 

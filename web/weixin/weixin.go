@@ -3,9 +3,10 @@ package weixin
 import (
 	"net/http"
 
+	"github.com/weiqiang333/infra-prometheus-webhook/internal/model"
+
 	"github.com/gin-gonic/gin"
 	"github.com/weiqiang333/infra-prometheus-webhook/internal/weixin"
-	"github.com/weiqiang333/infra-prometheus-webhook/model"
 )
 
 // Weixin 路由入口、响应

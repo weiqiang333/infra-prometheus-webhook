@@ -1,5 +1,3 @@
-ListenPort: ":8099"
-
 # Dingtalk 群机器人 access_token
 Dingtalk:
   P0: token...

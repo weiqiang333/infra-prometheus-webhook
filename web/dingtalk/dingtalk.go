@@ -5,7 +5,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/weiqiang333/infra-prometheus-webhook/internal/dingtalk"
-	"github.com/weiqiang333/infra-prometheus-webhook/model"
+	"github.com/weiqiang333/infra-prometheus-webhook/internal/model"
 )
 
 // Dingtalk 路由入口、响应

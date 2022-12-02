@@ -17,7 +17,7 @@ import "time"
       },
       "annotations": {
         "description": "Pod ingress-nginx/nginx-deployment-76bf4969df-64fmc: 1.2492166370671725 该 pod 最近 10 分钟内重启次数超过 3 次",
-        "summary": "ingress-nginx/nginx-deployment-76bf4969df-64fmc: restart more than 3 times"
+        "summary": "Pod restart more than 3 times"
       },
       "startsAt": "2019-05-11T03:54:05.7007992Z",
       "endsAt": "0001-01-01T00:00:00Z",
@@ -36,7 +36,7 @@ import "time"
   },
   "commonAnnotations": {
     "description": "Pod ingress-nginx/nginx-deployment-76bf4969df-64fmc: 1.2492166370671725 该 pod 最近 10 分钟内重启次数超过 3 次",
-    "summary": "ingress-nginx/nginx-deployment-76bf4969df-64fmc: restart more than 3 times"
+    "summary": "Pod restart more than 3 times"
   },
   "externalURL": "http://prometheus:9093",
   "version": "4",
@@ -46,7 +46,7 @@ import "time"
 
 type Alert struct {
 	Labels      map[string]string `json:"labels"`
-	Annotations map[string]string `json:annotations`
+	Annotations map[string]string `json:"annotations"`
 	StartsAt    time.Time         `json:"startsAt"`
 	EndsAt      time.Time         `json:"endsAt"`
 }
@@ -55,9 +55,9 @@ type Notification struct {
 	Version           string            `json:"version"`
 	GroupKey          string            `json:"groupKey"`
 	Status            string            `json:"status"`
-	GroupLabels       map[string]string `json:groupLabels`
-	CommonLabels      map[string]string `json:commonLabels`
-	CommonAnnotations map[string]string `json:commonAnnotations`
-	ExternalURL       string            `json:externalURL`
-	Alerts            []Alert           `json:alerts`
+	GroupLabels       map[string]string `json:"groupLabels"`
+	CommonLabels      map[string]string `json:"commonLabels"`
+	CommonAnnotations map[string]string `json:"commonAnnotations"`
+	ExternalURL       string            `json:"externalURL"`
+	Alerts            []Alert           `json:"alerts"`
 }

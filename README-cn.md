@@ -1,36 +1,36 @@
 # infra-prometheus-webhook
 
-This is a prometheus + alertmanager + webhook alert notification receiver
+infra-prometheus-webhook 是一个 prometheus + alertmanager + webhook 警报通知接收器钩子
 
-What is prometheus? See here [`prometheus`](https://prometheus.io/docs/introduction/overview/#what-is-prometheus)
+什么是 prometheus? 请看这里 [`Prometheus`](https://prometheus.io/docs/introduction/overview/#what-is-prometheus)
 
-Here, the [`DingTalk`](https://open-doc.dingtalk.com/microapp/serverapi2/qf2nxq) group robot receiver 
-and the [`yunpian`](https://github.com/yunpian/yunpian-go-sdk) voice receiver are implemented 
-and the [Weixin robot](https://developer.work.weixin.qq.com/document/path/91770)
-and the [Telegram Bot](https://core.telegram.org/bots/api).
+它实现了 [`DingTalk`](https://open-doc.dingtalk.com/microapp/serverapi2/qf2nxq) 群机器人接收器
+和 [`yunpian`](https://github.com/yunpian/yunpian-go-sdk) 云片语音接收器
+以及 [Weixin robot](https://developer.work.weixin.qq.com/document/path/91770)
+和 [Telegram Bot](https://core.telegram.org/bots/api).
 
-## Goals and status
-- The main goals of this webhook are:
+## 目标和状态
+- 该 webhook 的主要目标是：
 ```text
-    1. Receive from prometheus -> alertmanager -> HTTP POST request.
-    2. According to the parameters and data of the Post, it is judged to send different levels, different media, and aggregated alarm information.
+    1. 接收来自 prometheus -> alertmanager -> HTTP POST 请求.
+    2. 根据 Post 的参数及数据来判断发送不同等级、不同媒介、聚合的报警信息.
 ```
-- supported media
+- 支持的媒介
 ```text
-1. DingTalk News: Use the DingTalk group bot to inform the people who deal with it
-2. Cloud Sheet - Phone
-    Specific rules: Call the police only from 00:00 to 08:00.
-        Telephone is a specific solution and other media have not awakened the on-duty personnel to solve the problem. (Because it is more expensive or intrusive)
-3. Enterprise WeChat
-4. Telegram Bot
+1. 钉钉消息: 使用钉钉群机器人来向处理故障的人知晓它
+2. 云片 - 电话
+    特定规则: 只有凌晨至08:00点才会进行电话报警. 
+        电话是特定解决其它媒介都未唤醒值班人员来解决问题.(因为它的费用或者干扰度更高)
+3. 企业微信
+4. Telegram 机器人
 ```
 
-# Usage
+# 用法
 
-Here is the initialization of infra-prometheus-webhook, 
-and using systemd to manage infra-prometheus-webhook
+初始化并使用 infra-prometheus-webhook, 
+使用 systemd 管理你的 infra-prometheus-webhook 服务.
 
-- install
+- 安装
 ```bash
 version=v2.0
 wget https://github.com/weiqiang333/infra-prometheus-webhook/releases/download/${version}/infra-prometheus-webhook-linux-amd64-${version}.tar.gz
@@ -56,11 +56,10 @@ systemctl status infra-prometheus-webhook
 ```
 
 ## configs
+注意初始化你的配置文件 (configs/production.yaml)
 
-Note to initialize your configuration file (configs/production.yaml)
 
-
-# Use
+## Use
 
 - infra-prometheus-webhook -h
 ```
@@ -69,7 +68,8 @@ Note to initialize your configuration file (configs/production.yaml)
       --listen_address string   server listen address. (default "0.0.0.0:8080")
 ```
 
-# prometheus and alertmanager and infra-prometheus-webhook Cases used together
+# 使用案例
+prometheus and alertmanager and infra-prometheus-webhook Cases used together
 - prometheus's alerting_rules.yml file
 ```yaml
 groups:

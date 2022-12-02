@@ -4,9 +4,8 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
-
+	"github.com/weiqiang333/infra-prometheus-webhook/internal/model"
 	"github.com/weiqiang333/infra-prometheus-webhook/internal/phonecall"
-	"github.com/weiqiang333/infra-prometheus-webhook/model"
 )
 
 // Phonecall 路由入口、响应

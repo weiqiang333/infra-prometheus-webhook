@@ -23,7 +23,7 @@ func Telegram(notification model.Notification, priority string) error {
 	}
 	grade := notification.CommonLabels["priority"]
 	alertname := notification.CommonLabels["alertname"]
-	description := get_description_list(notification)
+	description := getDescriptionList(notification)
 	summary := notification.CommonAnnotations["summary"]
 
 	content := fmt.Sprintf(`状态: %s
@@ -55,8 +55,8 @@ Item values:
 	return nil
 }
 
-// get_description_list 将多条报警内容总结为一条信息清单
-func get_description_list(notification model.Notification) string {
+// getDescriptionList 将多条报警内容总结为一条信息清单
+func getDescriptionList(notification model.Notification) string {
 	var annotations bytes.Buffer
 	for i, alert := range notification.Alerts {
 		annotations.WriteString(strconv.Itoa(i+1) + ". " + alert.Annotations["description"])

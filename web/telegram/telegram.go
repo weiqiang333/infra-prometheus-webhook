@@ -1,6 +1,7 @@
 package telegram
 
 import (
+	"log"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -14,6 +15,7 @@ func Telegram(c *gin.Context) {
 	err := c.BindJSON(&notification)
 	priority, _ := c.Params.Get("priority")
 	if err != nil {
+		log.Println("Failed Telegram BindJSON err: ", err.Error())
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}

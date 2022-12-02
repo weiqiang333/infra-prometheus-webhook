@@ -2,11 +2,11 @@ package web
 
 import (
 	"fmt"
+	"log"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
 	"github.com/spf13/viper"
-	"github.com/weiqiang333/infra-prometheus-webhook/model"
 	"github.com/weiqiang333/infra-prometheus-webhook/web/dingtalk"
 	"github.com/weiqiang333/infra-prometheus-webhook/web/phonecall"
 	"github.com/weiqiang333/infra-prometheus-webhook/web/telegram"
@@ -30,9 +30,11 @@ func Webhook() {
 		alerts.POST("/weixin/:priority", weixin.Weixin)
 		alerts.POST("/telegram/:priority", telegram.Telegram)
 	}
-	err := router.Run(model.Config.ListenPort)
+
+	listenAddress := viper.GetString("listen_address")
+	err := router.Run(listenAddress)
 	if err != nil {
-		fmt.Println("service run failed: ", err.Error())
+		log.Println("service run failed: ", err.Error())
 	}
 }
 
@@ -40,10 +42,10 @@ func Webhook() {
 func reloadConfig(c *gin.Context) {
 	err := viper.ReadInConfig() // Find and read the config file
 	if err != nil {             // Handle errors reading the config file
-		fmt.Println(fmt.Errorf("Fatal error config file: %w \n", err))
+		log.Println(fmt.Errorf("Fatal error config file: %w \n", err))
 		c.String(http.StatusOK, fmt.Sprintf("Failed reload config file: %s, err: %s", viper.ConfigFileUsed(), err.Error()))
 		return
 	}
-	fmt.Println("reload config file: ", viper.ConfigFileUsed())
+	log.Println("reload config file: ", viper.ConfigFileUsed())
 	c.String(http.StatusOK, fmt.Sprintf("reload config file: %s", viper.ConfigFileUsed()))
 }

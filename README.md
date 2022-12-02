@@ -43,6 +43,17 @@ systemctl daemon-reload
 systemctl enable --now infra-prometheus-webhook
 systemctl status infra-prometheus-webhook
 ```
+- API
+```text
+/
+    # health check
+/-/reload
+    # reload config file
+/alerts/dingtalk/:priority
+/alerts/phonecall/:role
+/alerts/weixin/:priority
+/alerts/telegram/:priority
+```
 
 ## configs
 

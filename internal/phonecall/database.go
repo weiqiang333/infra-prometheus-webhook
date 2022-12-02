@@ -1,13 +1,11 @@
 package phonecall
 
 import (
+	"database/sql"
 	"fmt"
 
-	"github.com/spf13/viper"
-
-	"database/sql"
-
 	_ "github.com/lib/pq"
+	"github.com/spf13/viper"
 )
 
 func GetDB() *sql.DB {

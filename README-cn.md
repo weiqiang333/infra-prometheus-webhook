@@ -9,6 +9,8 @@ infra-prometheus-webhook 是一个 prometheus + alertmanager + webhook 警报通
 以及 [Weixin robot](https://developer.work.weixin.qq.com/document/path/91770)
 和 [Telegram Bot](https://core.telegram.org/bots/api).
 
+[English](README.md)
+
 ## 目标和状态
 - 该 webhook 的主要目标是：
 ```text

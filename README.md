@@ -9,6 +9,8 @@ and the [`yunpian`](https://github.com/yunpian/yunpian-go-sdk) voice receiver ar
 and the [Weixin robot](https://developer.work.weixin.qq.com/document/path/91770)
 and the [Telegram Bot](https://core.telegram.org/bots/api).
 
+[中文](README-cn.md)
+
 ## Goals and status
 - The main goals of this webhook are:
 ```text

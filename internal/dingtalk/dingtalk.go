@@ -60,7 +60,7 @@ Item values:
 	defer resp.Body.Close()
 	if resp.StatusCode != 200 {
 		body, _ := ioutil.ReadAll(resp.Body)
-		msg := fmt.Sprintf("Failed http.Post StatusCode is %v, body %s", resp.StatusCode, string(body))
+		msg := fmt.Sprintf("Failed http.Post %s StatusCode is %v, body %s", receiver, resp.StatusCode, string(body))
 		log.Println(msg)
 		return fmt.Errorf(msg)
 	}

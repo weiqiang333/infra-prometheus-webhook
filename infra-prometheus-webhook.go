@@ -28,7 +28,7 @@ import (
 
 func init() {
 	pflag.String("config", "configs/production.yaml", "config file")
-	pflag.String("listen_address", "0.0.0.0:8080", "server listen address.")
+	pflag.String("listen_address", "0.0.0.0:8099", "server listen address.")
 	pflag.Bool("check", false, "check's cron: Used to check the infrastructure.(It is a temporary solution and not recommended. - deprecating -)")
 
 	file, err := os.OpenFile("log/infra-prometheus-webhook.log", os.O_WRONLY|os.O_APPEND|os.O_CREATE, 0755)

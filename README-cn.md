@@ -34,7 +34,7 @@ infra-prometheus-webhook 是一个 prometheus + alertmanager + webhook 警报通
 
 - 安装
 ```bash
-version=v2.0
+version=v2.1
 wget https://github.com/weiqiang333/infra-prometheus-webhook/releases/download/${version}/infra-prometheus-webhook-linux-amd64-${version}.tar.gz
 mkdir -p /usr/local/infra-prometheus-webhook/log
 tar -zxf infra-prometheus-webhook-linux-amd64-${version}.tar.gz -C /usr/local/infra-prometheus-webhook
@@ -67,7 +67,7 @@ systemctl status infra-prometheus-webhook
 ```
       --check                   check's cron: Used to check the infrastructure
       --config string           config file (default "configs/production.yaml")
-      --listen_address string   server listen address. (default "0.0.0.0:8080")
+      --listen_address string   server listen address. (default "0.0.0.0:8099")
 ```
 
 # 使用案例

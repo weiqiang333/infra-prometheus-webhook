@@ -50,6 +50,7 @@ Item values:
 		"text": "%s",
     }`, chatId, content)
 	bodys := strings.NewReader(data)
+	fmt.Println(bodys)
 	resp, err := http.Post(fmt.Sprintf("https://api.telegram.org/bot%s/sendMessage", botToken), "application/json", bodys)
 	if err != nil {
 		log.Println("Failed http.Post", http.StatusInternalServerError, receiver, status, grade, alertname, summary, description, err.Error())

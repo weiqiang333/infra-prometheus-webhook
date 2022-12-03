@@ -34,7 +34,7 @@ and using systemd to manage infra-prometheus-webhook
 
 - install
 ```bash
-version=v2.0
+version=v2.1
 wget https://github.com/weiqiang333/infra-prometheus-webhook/releases/download/${version}/infra-prometheus-webhook-linux-amd64-${version}.tar.gz
 mkdir -p /usr/local/infra-prometheus-webhook/log
 tar -zxf infra-prometheus-webhook-linux-amd64-${version}.tar.gz -C /usr/local/infra-prometheus-webhook
@@ -68,7 +68,7 @@ Note to initialize your configuration file (configs/production.yaml)
 ```
       --check                   check's cron: Used to check the infrastructure
       --config string           config file (default "configs/production.yaml")
-      --listen_address string   server listen address. (default "0.0.0.0:8080")
+      --listen_address string   server listen address. (default "0.0.0.0:8099")
 ```
 
 # prometheus and alertmanager and infra-prometheus-webhook Cases used together

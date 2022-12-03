@@ -1,6 +1,8 @@
 # infra-prometheus-webhook
 
-This is a prometheus + alertmanager + webhook alert notification receiver
+This is a prometheus + alertmanager + webhook alert notification receiver.
+
+Gather: prometheus-webhook-dingtalk; prometheus-webhook-yunpian; prometheus-webhook-weixin ;prometheus-webhook-telegram.
 
 What is prometheus? See here [`prometheus`](https://prometheus.io/docs/introduction/overview/#what-is-prometheus)
 

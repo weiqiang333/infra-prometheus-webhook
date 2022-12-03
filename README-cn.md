@@ -2,6 +2,8 @@
 
 infra-prometheus-webhook 是一个 prometheus + alertmanager + webhook 警报通知接收器钩子
 
+集合: prometheus-webhook-dingtalk; prometheus-webhook-yunpian; prometheus-webhook-weixin ;prometheus-webhook-telegram。
+
 什么是 prometheus? 请看这里 [`Prometheus`](https://prometheus.io/docs/introduction/overview/#what-is-prometheus)
 
 它实现了 [`DingTalk`](https://open-doc.dingtalk.com/microapp/serverapi2/qf2nxq) 群机器人接收器

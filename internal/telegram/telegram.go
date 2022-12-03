@@ -2,6 +2,7 @@ package telegram
 
 import (
 	"fmt"
+	"io/ioutil"
 	"log"
 	"net/http"
 	"strings"
@@ -9,6 +10,7 @@ import (
 	"github.com/spf13/viper"
 	model2 "github.com/weiqiang333/infra-prometheus-webhook/internal/model"
 	"github.com/weiqiang333/infra-prometheus-webhook/internal/utils/notification_process"
+	"github.com/weiqiang333/infra-prometheus-webhook/internal/utils/str"
 )
 
 // Telegram 发送消息
@@ -40,6 +42,7 @@ Item values:
 
 故障: %s`,
 		status, grade, alertname, description, summary)
+	content = str.EscapeStrings(content, []string{"_"})
 
 	data := fmt.Sprintf(`{
         "parse_mode": "Markdown",
@@ -47,10 +50,18 @@ Item values:
 		"text": "%s",
     }`, chatId, content)
 	bodys := strings.NewReader(data)
+	fmt.Println(bodys)
 	resp, err := http.Post(fmt.Sprintf("https://api.telegram.org/bot%s/sendMessage", botToken), "application/json", bodys)
 	if err != nil {
 		log.Println("Failed http.Post", http.StatusInternalServerError, receiver, status, grade, alertname, summary, description, err.Error())
 		return err
+	}
+	defer resp.Body.Close()
+	if resp.StatusCode != 200 {
+		body, _ := ioutil.ReadAll(resp.Body)
+		msg := fmt.Sprintf("Failed http.Post %s StatusCode is %v, body %s", receiver, resp.StatusCode, string(body))
+		log.Println(msg)
+		return fmt.Errorf(msg)
 	}
 	log.Println("INFO http.Post", resp.StatusCode, receiver, status, grade, alertname, summary, description)
 	return nil

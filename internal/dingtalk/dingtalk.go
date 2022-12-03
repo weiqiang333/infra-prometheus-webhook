@@ -2,6 +2,7 @@ package dingtalk
 
 import (
 	"fmt"
+	"io/ioutil"
 	"log"
 	"net/http"
 	"strings"
@@ -55,6 +56,13 @@ Item values:
 	if err != nil {
 		log.Println("Failed http.Post", http.StatusInternalServerError, receiver, status, grade, alertname, summary, description)
 		return err
+	}
+	defer resp.Body.Close()
+	if resp.StatusCode != 200 {
+		body, _ := ioutil.ReadAll(resp.Body)
+		msg := fmt.Sprintf("Failed http.Post %s StatusCode is %v, body %s", receiver, resp.StatusCode, string(body))
+		log.Println(msg)
+		return fmt.Errorf(msg)
 	}
 	log.Println("INFO http.Post", resp.StatusCode, receiver, status, grade, alertname, summary, description)
 	return nil

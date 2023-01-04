@@ -7,7 +7,7 @@ Gather: prometheus-webhook-dingtalk; prometheus-webhook-yunpian; prometheus-webh
 What is prometheus? See here [`prometheus`](https://prometheus.io/docs/introduction/overview/#what-is-prometheus)
 
 Here, the [`DingTalk`](https://open-doc.dingtalk.com/microapp/serverapi2/qf2nxq) group robot receiver 
-and the [`yunpian`](https://github.com/yunpian/yunpian-go-sdk) voice receiver are implemented 
+and the [`yunpian`](https://github.com/yunpian/yunpian-go-sdk) Yunpian SMS + voice receiver
 and the [Weixin robot](https://developer.work.weixin.qq.com/document/path/91770)
 and the [Telegram Bot](https://core.telegram.org/bots/api).
 
@@ -22,7 +22,7 @@ and the [Telegram Bot](https://core.telegram.org/bots/api).
 - supported media
 ```text
 1. DingTalk News: Use the DingTalk group bot to inform the people who deal with it
-2. Cloud Sheet - Phone
+2. YunPian sms/voice ()
     Specific rules: Call the police only from 00:00 to 08:00.
         Telephone is a specific solution and other media have not awakened the on-duty personnel to solve the problem. (Because it is more expensive or intrusive)
 3. Enterprise WeChat
@@ -48,6 +48,7 @@ systemctl enable --now infra-prometheus-webhook
 systemctl status infra-prometheus-webhook
 ```
 - API
+[api test](./docs/api_test/api_test.md)
 ```text
 /
     # health check
@@ -55,6 +56,8 @@ systemctl status infra-prometheus-webhook
     # reload config file
 /alerts/dingtalk/:priority
 /alerts/phonecall/:role
+/alerts/yunpian/:sendtype/:priority
+    # sendtype: sms/voice
 /alerts/weixin/:priority
 /alerts/telegram/:priority
 ```

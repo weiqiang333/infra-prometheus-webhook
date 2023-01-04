@@ -66,4 +66,5 @@ func loadConfig() {
 	if err != nil {            // Handle errors reading the config file
 		panic(fmt.Errorf("Fatal error config file: %w \n", err))
 	}
+	log.Println("load config file:", viper.GetString("config"))
 }

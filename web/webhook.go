@@ -5,6 +5,8 @@ import (
 	"log"
 	"net/http"
 
+	"github.com/weiqiang333/infra-prometheus-webhook/web/yunpian_clnt"
+
 	"github.com/gin-gonic/gin"
 	"github.com/spf13/viper"
 	"github.com/weiqiang333/infra-prometheus-webhook/web/dingtalk"
@@ -27,6 +29,7 @@ func Webhook() {
 	{
 		alerts.POST("/dingtalk/:priority", dingtalk.Dingtalk)
 		alerts.POST("/phonecall/:role", phonecall.Phonecall)
+		alerts.POST("/yunpian/:sendtype/:priority", yunpian_clnt.YunPianClnt)
 		alerts.POST("/weixin/:priority", weixin.Weixin)
 		alerts.POST("/telegram/:priority", telegram.Telegram)
 	}

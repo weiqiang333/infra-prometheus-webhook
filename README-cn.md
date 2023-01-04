@@ -36,7 +36,7 @@ infra-prometheus-webhook 是一个 prometheus + alertmanager + webhook 警报通
 
 - 安装
 ```bash
-version=v2.1
+version=v2.2
 wget https://github.com/weiqiang333/infra-prometheus-webhook/releases/download/${version}/infra-prometheus-webhook-linux-amd64-${version}.tar.gz
 mkdir -p /usr/local/infra-prometheus-webhook/log
 tar -zxf infra-prometheus-webhook-linux-amd64-${version}.tar.gz -C /usr/local/infra-prometheus-webhook

@@ -11,6 +11,7 @@ import (
 	"github.com/weiqiang333/infra-prometheus-webhook/web/phonecall"
 	"github.com/weiqiang333/infra-prometheus-webhook/web/telegram"
 	"github.com/weiqiang333/infra-prometheus-webhook/web/weixin"
+	"github.com/weiqiang333/infra-prometheus-webhook/web/yunpian_clnt"
 )
 
 // Webhook 路由入口文件
@@ -27,6 +28,7 @@ func Webhook() {
 	{
 		alerts.POST("/dingtalk/:priority", dingtalk.Dingtalk)
 		alerts.POST("/phonecall/:role", phonecall.Phonecall)
+		alerts.POST("/yunpian/:sendtype/:priority", yunpian_clnt.YunPianClnt)
 		alerts.POST("/weixin/:priority", weixin.Weixin)
 		alerts.POST("/telegram/:priority", telegram.Telegram)
 	}

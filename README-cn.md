@@ -7,7 +7,7 @@ infra-prometheus-webhook 是一个 prometheus + alertmanager + webhook 警报通
 什么是 prometheus? 请看这里 [`Prometheus`](https://prometheus.io/docs/introduction/overview/#what-is-prometheus)
 
 它实现了 [`DingTalk`](https://open-doc.dingtalk.com/microapp/serverapi2/qf2nxq) 群机器人接收器
-和 [`yunpian`](https://github.com/yunpian/yunpian-go-sdk) 云片语音接收器
+和 [`yunpian`](https://github.com/yunpian/yunpian-go-sdk) 云片短信+语音接收器
 以及 [Weixin robot](https://developer.work.weixin.qq.com/document/path/91770)
 和 [Telegram Bot](https://core.telegram.org/bots/api).
 
@@ -22,8 +22,8 @@ infra-prometheus-webhook 是一个 prometheus + alertmanager + webhook 警报通
 - 支持的媒介
 ```text
 1. 钉钉消息: 使用钉钉群机器人来向处理故障的人知晓它
-2. 云片 - 电话
-    特定规则: 只有凌晨至08:00点才会进行电话报警. 
+2. 云片短信+语音,yunpian sms/voice
+    特定规则: 只有00:00至08:00点才会进行电话报警. 
         电话是特定解决其它媒介都未唤醒值班人员来解决问题.(因为它的费用或者干扰度更高)
 3. 企业微信
 4. Telegram 机器人
@@ -48,6 +48,7 @@ systemctl enable --now infra-prometheus-webhook
 systemctl status infra-prometheus-webhook
 ```
 - API
+[api test](./docs/api_test/api_test.md)
 ```text
 /
     # health check
@@ -55,6 +56,8 @@ systemctl status infra-prometheus-webhook
     # reload config file
 /alerts/dingtalk/:priority
 /alerts/phonecall/:role
+/alerts/yunpian/:sendtype/:priority
+    # sendtype: sms/voice
 /alerts/weixin/:priority
 /alerts/telegram/:priority
 ```

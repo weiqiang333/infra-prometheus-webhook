@@ -55,7 +55,7 @@
     http://127.0.0.1:8099/alerts/yunpian/voice/p0
     http://127.0.0.1:8099/alerts/yunpian/sms/p0
 ```
-- sms template
+- template declare
 ```text
     yunpian 申请签名报备: 【systemName】
     yunpian 申请模板报备: 故障级别 #receiver#,当前状态 #status#,故障名称 #alertname#,故障数量#alertsum#个

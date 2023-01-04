@@ -5,14 +5,13 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/weiqiang333/infra-prometheus-webhook/web/yunpian_clnt"
-
 	"github.com/gin-gonic/gin"
 	"github.com/spf13/viper"
 	"github.com/weiqiang333/infra-prometheus-webhook/web/dingtalk"
 	"github.com/weiqiang333/infra-prometheus-webhook/web/phonecall"
 	"github.com/weiqiang333/infra-prometheus-webhook/web/telegram"
 	"github.com/weiqiang333/infra-prometheus-webhook/web/weixin"
+	"github.com/weiqiang333/infra-prometheus-webhook/web/yunpian_clnt"
 )
 
 // Webhook 路由入口文件
